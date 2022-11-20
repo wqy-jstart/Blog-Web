@@ -32,6 +32,10 @@ const routes = [
   {
     path:'/createArticle',
     component: () => import('../views/temp/CreateArticleView')
+  },
+  {
+    path:'/personalArticle',
+    component: () => import('../views/temp/PersonalArticleView.vue')
   }
 ]
 

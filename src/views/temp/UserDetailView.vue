@@ -67,9 +67,10 @@ a {
         <el-aside class="layout-side">
           <div class="block" style="float: right;margin-top: 60px">
             <el-avatar :size="100"
-                       src="https://img2.baidu.com/it/u=4244269751,4000533845&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500"></el-avatar>
+                       :src="user.avatar"></el-avatar>
             <p style="color: white;text-align: center">昵称:{{user.nickname}}</p>
             <p style="color: white;text-align: center">评论量:{{user.articleCount}}</p>
+            <el-button style="margin-right:12px;margin-top:10px;float: right" type="success" size="mini" @click="selectArticle()">我的文章</el-button>
           </div>
         </el-aside>
         <el-main class="layout-main">
@@ -158,6 +159,9 @@ export default {
     };
   },
   methods: {
+    selectArticle(){
+      this.$router.push('/personalArticle'+location.search);
+    },
     // 加载本地的表单中的数据,存放到roleForm中去
     loadLocalRuleForm(){
       let localRuleFormString = localStorage.getItem('ruleForm');
