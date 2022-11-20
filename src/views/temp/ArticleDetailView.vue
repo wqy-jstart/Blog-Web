@@ -114,7 +114,6 @@ a:active {
                 {{ item.name }}
               </el-tag>
               <p style="font-size: 25px;color: #13cd7c;font-weight: bold">图片:</p>
-
                 <img :src="article.url">
               <p style="font-size: 25px;color: #0e6bf5;font-weight: bold">评论:</p>
               <el-input style="margin: 10px;width: 300px"

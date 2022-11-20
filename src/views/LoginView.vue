@@ -61,6 +61,7 @@ a {
   </div>
 </template>
 <script>
+
 export default {
   data() {
     return {
@@ -78,7 +79,7 @@ export default {
           {required: true, message: '请输入密码', trigger: 'blur'},
           {min: 4, max: 15, message: '长度在 4 到 15 个字符', trigger: 'blur'}
         ],
-      }
+      },
     };
   },
   methods: {
@@ -87,18 +88,17 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           let url = 'http://localhost:8888/users/login';
-          let formData = this.qs.stringify(this.ruleForm);
-          this.axios.post(url,formData).then((response)=>{
+          this.axios.post(url, this.ruleForm).then((response) => {
             let responseBody = response.data;
-            if (responseBody.state==20000){
+            if (responseBody.state == 20000) {
               let ruleFormString = JSON.stringify(this.ruleForm.username);
-              localStorage.setItem('ruleForm',ruleFormString);
+              localStorage.setItem('ruleForm', ruleFormString);
               location.href = "/";
               this.$message({
                 message: '登录成功!',
                 type: 'success'
               });
-            }else {
+            } else {
               this.$message.error(responseBody.message);
             }
           })
@@ -111,6 +111,24 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     }
+  },
+  created() {
+    //username=tom; password=123456
+    //"username=admin; password=123456"
+    let arr = document.cookie.split(";");
+    // 拆分后:username=tom或 password=123456两项
+      let uCookieArr = arr[0].split("=");//按照"="拆分
+      let uName = uCookieArr[0].trim();//去除password前面的空格
+      let uValue = uCookieArr[1];
+      let pCookieArr = arr[1].split("=");
+      let pName = pCookieArr[0].trim();
+      let pValue = pCookieArr[1];
+      if (uName == "username") {//如果遍历的是username,说明遍历到昵称
+        this.ruleForm.username = uValue;//将获取的昵称赋给绑定的username
+      }
+      if (pName == "password") {//如果遍历的是password,说明遍历到密码
+        this.ruleForm.password = pValue;//将获取的密码赋给绑定的password
+      }
   }
 }
 </script>

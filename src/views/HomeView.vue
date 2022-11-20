@@ -117,6 +117,7 @@ a:active {
 export default {
   data() {
     return {
+      user1:{},
       user:{
         username:'',
         articleCount:'',
@@ -144,7 +145,10 @@ export default {
     // 退出登录
     logout(){
       localStorage.removeItem('ruleForm');
-      this.$router.push('/login');
+      let url = 'http://localhost:8888/users/logout'
+      this.axios.get(url).then(()=>{
+        this.$router.push('/login');
+      })
     },
     // 加载用户详情信息
     loadUserDetail(){
@@ -181,6 +185,6 @@ export default {
     this.loadLocalRuleForm();
     this.loadUserDetail();
     this.loadHomeList();
-  }
+  },
 }
 </script>
