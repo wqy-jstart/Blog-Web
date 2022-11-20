@@ -87,7 +87,7 @@ a:active {
             <el-avatar :size="100"
                        :src="user.avatar"/>
             <p style="color: white;text-align: center;font-size: 15px">昵称:{{user.nickname}}</p>
-            <p style="color: white;text-align: center;font-size: 15px">浏览量:{{user.articleCount}}</p>
+            <p style="color: white;text-align: center;font-size: 15px">评论量:{{user.articleCount}}</p>
           </div>
         </el-aside>
         <el-main class="layout-main">
@@ -114,7 +114,7 @@ a:active {
                 {{ item.name }}
               </el-tag>
               <p style="font-size: 25px;color: #13cd7c;font-weight: bold">图片:</p>
-                <img :src="article.url">
+                <img style="width: 200px;height: 200px" src="https://img2.baidu.com/it/u=4244269751,4000533845&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500" alt="">
               <p style="font-size: 25px;color: #0e6bf5;font-weight: bold">评论:</p>
               <el-input style="margin: 10px;width: 300px"
                         type="text"
