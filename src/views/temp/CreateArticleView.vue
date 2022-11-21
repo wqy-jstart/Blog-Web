@@ -221,7 +221,12 @@ export default {
           //将formData对象转换成FormData格式-------------------------------------数组格式
           let formData = this.qs.stringify(this.article, {arrayFormat: 'repeat'});
           console.log('formData=' + formData);
-          this.axios.post(url,formData).then((response) => {//箭头函数
+          this.axios
+              .create({
+                'headers': {
+                  'Authorization': localStorage.getItem('jwt')
+                }
+              }).post(url,formData).then((response) => {//箭头函数
             let responseBody = response.data;
             console.log('responseBody = ');
             console.log(responseBody);
@@ -248,7 +253,12 @@ export default {
     loadCategoryList() {
       let url = 'http://localhost:8888/categories';
       console.log('url='+url);
-      this.axios.get(url).then((response)=>{
+      this.axios
+          .create({
+            'headers': {
+              'Authorization': localStorage.getItem('jwt')
+            }
+          }).get(url).then((response)=>{
         let responseBody = response.data;
         this.articleCategoryListOptions = responseBody.data;
       })
@@ -258,7 +268,12 @@ export default {
       let url = 'http://localhost:8888/users/';
       let formData = this.qs.stringify(this.ruleForm);
       console.log(formData);
-      this.axios.post(url,formData).then((response)=>{
+      this.axios
+          .create({
+            'headers': {
+              'Authorization': localStorage.getItem('jwt')
+            }
+          }).post(url,formData).then((response)=>{
         let responseBody = response.data;
         if (responseBody.state == 20000){
           this.ruleForm = responseBody.data;
@@ -271,7 +286,12 @@ export default {
     handleRemove(file, fileList) {
       console.log(file, fileList);
       let url = 'http://localhost:8888/remove?url=' + file.response;
-      this.axios.get(url).then((response)=>{
+      this.axios
+          .create({
+            'headers': {
+              'Authorization': localStorage.getItem('jwt')
+            }
+          }).get(url).then((response)=>{
         console.log("删除服务器图片完成!")
       })
     },

@@ -224,7 +224,12 @@ export default {
         let formData = this.qs.stringify(this.ruleForm);// 将修改的数据转换为formData格式
         console.log('formData=' + formData);
 
-        this.axios.post(url, formData).then((response) => {
+        this.axios
+            .create({
+              'headers': {
+                'Authorization': localStorage.getItem('jwt')
+              }
+            }).post(url, formData).then((response) => {
           let responseBody = response.data;
           if (responseBody.state == 20000) {
             this.$alert('修改成功!', '操作成功', {
@@ -247,7 +252,12 @@ export default {
       console.log('url:' + url);
       // let formData = this.qs.stringify(this.user);// 将修改的数据转换为formData格式
       // console.log('formData=' + formData);
-      this.axios.post(url, this.user).then((response) => {
+      this.axios
+          .create({
+            'headers': {
+              'Authorization': localStorage.getItem('jwt')
+            }
+          }).post(url, this.user).then((response) => {
         let responseBody = response.data;
         if (responseBody.state == 20000) {
           this.$alert('修改成功!', '操作成功', {
@@ -268,7 +278,12 @@ export default {
       let url = 'http://localhost:8888/users/';
       let formData = this.qs.stringify(this.ruleForm);
       console.log(formData);
-      this.axios.post(url, formData).then((response) => {
+      this.axios
+          .create({
+            'headers': {
+              'Authorization': localStorage.getItem('jwt')
+            }
+          }).post(url, formData).then((response) => {
         let responseBody = response.data;
         if (responseBody.state == 20000) {
           this.user = responseBody.data;
@@ -295,7 +310,12 @@ export default {
       console.log(file, fileList);
       //发出删除图片的请求
       let url = 'http://localhost:8888/remove?url=' + file.response;
-      this.axios.get(url).then((response) => {
+      this.axios
+          .create({
+            'headers': {
+              'Authorization': localStorage.getItem('jwt')
+            }
+          }).get(url).then((response) => {
         this.$message.success("删除服务器图片完成!")
       })
     },

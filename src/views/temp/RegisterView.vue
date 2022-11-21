@@ -74,7 +74,12 @@ export default {
           let url = 'http://localhost:8888/users/register';
           console.log('url='+url);
           let formData = this.qs.stringify(this.ruleForm);
-          this.axios.post(url,formData).then((response)=>{
+          this.axios
+              .create({
+                'headers': {
+                  'Authorization': localStorage.getItem('jwt')
+                }
+              }).post(url,formData).then((response)=>{
             let responseBody = response.data;
             if (responseBody.state==20000){
               this.$message({

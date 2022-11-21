@@ -182,7 +182,12 @@ export default {
     send(){
       let formData = this.qs.stringify(this.comment);
       let url = 'http://localhost:8888/comments/insert';
-      this.axios.post(url,formData).then((response)=>{
+      this.axios
+          .create({
+            'headers': {
+              'Authorization': localStorage.getItem('jwt')
+            }
+          }).post(url,formData).then((response)=>{
         let responseBody = response.data;
         if (responseBody.state == 20000){
           this.$message.success("评论成功!")
@@ -201,7 +206,12 @@ export default {
       let uid = id[1]
       this.comment.userId = uid;
       let url = 'http://localhost:8888/users/'+uid+'/selectById';
-      this.axios.get(url).then((response)=>{
+      this.axios
+          .create({
+            'headers': {
+              'Authorization': localStorage.getItem('jwt')
+            }
+          }).get(url).then((response)=>{
         let responseBody = response.data;
         if (responseBody.state == 20000){
           this.user = responseBody.data;
@@ -218,7 +228,12 @@ export default {
       let aid = id[1]
       this.comment.articleId = aid;
       let url = 'http://localhost:8888/articles/'+aid+'/selectById';
-      this.axios.get(url).then((response)=>{
+      this.axios
+          .create({
+            'headers': {
+              'Authorization': localStorage.getItem('jwt')
+            }
+          }).get(url).then((response)=>{
         let responseBody = response.data;
         if (responseBody.state == 20000){
           this.article = responseBody.data;
@@ -234,7 +249,12 @@ export default {
       let id = sp[1].split("=")
       let aid = id[1]
       let url = 'http://localhost:8888/categories/'+aid+'/listByArticleId';
-      this.axios.get(url).then((response)=>{
+      this.axios
+          .create({
+            'headers': {
+              'Authorization': localStorage.getItem('jwt')
+            }
+          }).get(url).then((response)=>{
         let responseBody = response.data;
         if (responseBody.state == 20000){
           this.category = responseBody.data;
@@ -250,7 +270,12 @@ export default {
       let id = sp[1].split("=")
       let aid = id[1]
       let url = 'http://localhost:8888/comments/'+aid+'/listByArticleId';
-      this.axios.get(url).then((response)=>{
+      this.axios
+          .create({
+            'headers': {
+              'Authorization': localStorage.getItem('jwt')
+            }
+          }).get(url).then((response)=>{
         let responseBody = response.data;
         if (responseBody.state == 20000){
           this.commentList = responseBody.data;

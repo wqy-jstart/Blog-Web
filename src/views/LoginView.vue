@@ -88,12 +88,17 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           let url = 'http://localhost:8888/users/login';
-          this.axios.post(url, this.ruleForm).then((response) => {
+          let formData = this.qs.stringify(this.ruleForm)
+          this.axios.post(url, formData).then((response) => {
             let responseBody = response.data;
             if (responseBody.state == 20000) {
               let ruleFormString = JSON.stringify(this.ruleForm.username);
               localStorage.setItem('ruleForm', ruleFormString);
               location.href = "/";
+              let jwt = responseBody.data;
+              console.log('登陆成功,服务器响应JWT:'+jwt);
+              localStorage.setItem('jwt',jwt);
+              console.log('已经将JWT保存到localStorage中')
               this.$message({
                 message: '登录成功!',
                 type: 'success'

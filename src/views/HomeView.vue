@@ -146,7 +146,12 @@ export default {
     logout(){
       localStorage.removeItem('ruleForm');
       let url = 'http://localhost:8888/users/logout'
-      this.axios.get(url).then(()=>{
+      this.axios
+          .create({
+            'headers': {
+              'Authorization': localStorage.getItem('jwt')
+            }
+          }).get(url).then(()=>{
         this.$router.push('/login');
       })
     },
@@ -155,7 +160,12 @@ export default {
       let url = 'http://localhost:8888/users/';
       let formData = this.qs.stringify(this.ruleForm);
       console.log('formData='+formData);
-      this.axios.post(url,formData).then((response)=>{
+      this.axios
+          .create({
+            'headers': {
+              'Authorization': localStorage.getItem('jwt')
+            }
+          }).post(url,formData).then((response)=>{
         let responseBody = response.data;
         if (responseBody.state == 20000){
           this.user = responseBody.data;
@@ -174,7 +184,13 @@ export default {
     // 加载主页列表信息
     loadHomeList(){
       let url = 'http://localhost:8888/articles/';
-      this.axios.get(url).then((response)=>{
+      this.axios
+          .create({
+            'headers': {
+              'Authorization': localStorage.getItem('jwt')
+            }
+          })
+      .get(url).then((response)=>{
         let responseBody = response.data;
         if (responseBody.state == 20000){
           this.homeList =  responseBody.data;
