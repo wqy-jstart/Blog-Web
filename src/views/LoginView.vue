@@ -1,6 +1,6 @@
 <style>
 body {
-  background-image: url("../assets/loginImg.png");
+  background-image: url("../../public/loginImg.png");
   background-size: cover; /*设置封面*/
 }
 

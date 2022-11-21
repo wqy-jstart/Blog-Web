@@ -1,6 +1,6 @@
 <style>
 body {
-  background-image: url("../../assets/loginImg.png");
+  background-image: url("../../../public/loginImg.png");
   background-size: cover; /*设置封面*/
 }
 
@@ -85,7 +85,7 @@ a:active {
         <el-aside class="layout-side">
           <div class="block" style="float: right;margin-top: 60px">
             <el-avatar :size="100"
-                       src="https://img2.baidu.com/it/u=4244269751,4000533845&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500"/>
+                       :src="ruleForm.avatar"/>
             <p style="color: white;text-align: center">昵称:{{ruleForm.nickname}}</p>
             <p style="color: white;text-align: center">评论量:{{ruleForm.articleCount}}</p>
           </div>
@@ -182,6 +182,7 @@ export default {
       },
       ruleForm:{ // 本地存储的用户名数据
         username:'',
+        avatar:'',
         nickname:'',
         articleCount: '',
         id:'',
@@ -261,6 +262,7 @@ export default {
         let responseBody = response.data;
         if (responseBody.state == 20000){
           this.ruleForm = responseBody.data;
+          this.ruleForm.avatar = require("../../assets/img"+this.ruleForm.avatar)
         }else {
           this.$message.error(responseBody.message);
         }

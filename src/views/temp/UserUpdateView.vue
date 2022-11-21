@@ -1,6 +1,6 @@
 <style>
 body {
-  background-image: url("../../assets/loginImg.png");
+  background-image: url("../../../public/loginImg.png");
   background-size: cover; /*设置封面*/
 }
 
@@ -12,7 +12,7 @@ body {
   line-height: 60px;
 }
 
-.layout-side{
+.layout-side {
   width: 600px !important;
   height: 1000px;
 }
@@ -25,8 +25,9 @@ a {
 
 /*-----------------------------------------------*/
 .box-card {
-  margin-left: 0!important;
+  margin-left: 0 !important;
 }
+
 /*--------------------------------------------------*/
 </style>
 <template>
@@ -40,14 +41,16 @@ a {
           <div class="block" style="float: right;margin-top: 60px">
             <el-avatar :size="100"
                        :src="user.avatar"/>
-            <p style="color: white;text-align: center">昵称:{{user.nickname}}</p>
-            <p style="color: white;text-align: center">浏览量:{{user.articleCount}}</p>
-            <el-button style="margin-right:12px;margin-top:10px;float: right" type="primary" size="mini" @click="handleEdit()">修改密码</el-button>
+            <p style="color: white;text-align: center">昵称:{{ user.nickname }}</p>
+            <p style="color: white;text-align: center">浏览量:{{ user.articleCount }}</p>
+            <el-button style="margin-right:12px;margin-top:10px;float: right" type="primary" size="mini"
+                       @click="handleEdit()">修改密码
+            </el-button>
           </div>
         </el-aside>
         <el-main class="layout-main">
           <p style="color: white;margin-left: 260px;margin-bottom: 20px;font-size: 30px;font-family: 黑体">修改信息</p>
-          <el-card class="box-card" style="width: 600px;height: 900px;margin: 0;border: 1px solid black"><!--卡片-->
+          <el-card class="box-card" style="width: 600px;height: 1000px;margin: 0;border: 1px solid black"><!--卡片-->
             <el-form label-width="80px"> <!--Element组件中的表单-->
               <el-form-item label="用户名:">
                 <el-input type="text" v-model="user.username"/>
@@ -85,6 +88,22 @@ a {
               <el-form-item label="个性签名:">
                 <el-input type="textarea" v-model="user.sign"/>
               </el-form-item>
+              <el-form-item label="头像:">
+                <img :src="oldAvatar" width="100px" height="100px" v-if="isShow" alt=""><!--修改前的图片,控制显示isShow-->
+                <!--当上传成功后调用handleSuccess这个方法-->
+                <el-upload
+                    action="http://localhost:8888/upload"
+                    name="pic"
+                    list-type="picture-card"
+                    :on-success="handleSuccess"
+                    :on-preview="handlePictureCardPreview"
+                    :on-remove="handleRemove">
+                  <i class="el-icon-plus"></i>
+                </el-upload>
+                <el-dialog :visible.sync="dialogVisible">
+                  <img width="100%" :src="dialogImageUrl" alt="">
+                </el-dialog>
+              </el-form-item>
               <el-form-item>
                 <el-button style="margin: 0 0 0 20px"
                            type="primary" @click="submitEdit()">开始修改
@@ -120,27 +139,35 @@ a {
 export default {
   data() {
     return {
+      // 图片属性
+      isShow: true,
+      dialogImageUrl: '',
+      dialogVisible: false,
+      // 弹窗属性
       dialogFormVisible: false,
-      formLabelWidth:'120px',
+      formLabelWidth: '120px',
+
+      // 用户对象
       user: {
-        id:'',
-        username:'',
-        password:'',
-        nickname:'',
-        gender:'',
-        age:'',
-        birthday:'',
-        phone:'',
-        email:'',
-        address:'',
-        sign:'',
-        articleCount:'',
-        avatar:''
+        id: '',
+        username: '',
+        password: '',
+        nickname: '',
+        gender: '',
+        age: '',
+        birthday: '',
+        phone: '',
+        email: '',
+        address: '',
+        sign: '',
+        articleCount: '',
+        avatar: ''
       },
-      OldPassword:'',
-      ruleForm:{
-        username:'',
-        password:''
+      oldAvatar:'',
+      OldPassword: '',
+      ruleForm: {
+        username: '',
+        password: ''
       },
       pickerOptions: {
         disabledDate(time) {
@@ -177,7 +204,7 @@ export default {
   },
   methods: {
     // 加载本地的表单中的数据,存放到roleForm中去
-    loadLocalRuleForm(){
+    loadLocalRuleForm() {
       let localRuleFormString = localStorage.getItem('ruleForm');
       if (localRuleFormString) {
         let localRuleForm = JSON.parse(localRuleFormString);
@@ -186,12 +213,12 @@ export default {
       }
     },
     // 处理修改密码前的信息
-    handleEdit(){
+    handleEdit() {
       this.dialogFormVisible = true;
     },
     // 处理修改密码后的信息
-    submitTrue(){
-      if (this.OldPassword==this.user.password){
+    submitTrue() {
+      if (this.OldPassword == this.user.password) {
         let url = 'http://localhost:8888/users/' + this.user.id + '/updateToPassword';
         console.log('url:' + url);
         let formData = this.qs.stringify(this.ruleForm);// 将修改的数据转换为formData格式
@@ -210,7 +237,7 @@ export default {
             this.$message.error(responseBody.message);
           }
         })
-      }else {
+      } else {
         this.$message.error("原密码不一致,请重试!")
       }
     },
@@ -220,14 +247,14 @@ export default {
       console.log('url:' + url);
       // let formData = this.qs.stringify(this.user);// 将修改的数据转换为formData格式
       // console.log('formData=' + formData);
-
       this.axios.post(url, this.user).then((response) => {
         let responseBody = response.data;
         if (responseBody.state == 20000) {
           this.$alert('修改成功!', '操作成功', {
             confirmButtonText: '确定',
             callback: action => {
-              this.$router.push('/userDetail');
+              this.$router.push('/userDetail');// 返回到用户详情页面
+              this.loadUserDetail();// 加载user数据
             }
           });
           // 返回详情列表
@@ -237,22 +264,45 @@ export default {
       })
     },
     // 加载修改前用户详情信息
-    loadUserDetail(){
+    loadUserDetail() {
       let url = 'http://localhost:8888/users/';
       let formData = this.qs.stringify(this.ruleForm);
       console.log(formData);
-      this.axios.post(url,formData).then((response)=>{
+      this.axios.post(url, formData).then((response) => {
         let responseBody = response.data;
-        if (responseBody.state == 20000){
+        if (responseBody.state == 20000) {
           this.user = responseBody.data;
-        }else {
+           // 获取user中的头像路径,放到require中
+          this.user.avatar = require("../../assets/img"+this.user.avatar);// 将修改图片的原图设置为获取并处理后的路径
+          this.oldAvatar = this.user.avatar
+        } else {
           this.$message.error(responseBody.message);
         }
       })
     },
+    handleSuccess(response, file, fileList) {//图片上传成功后接收图片的url
+      // TODO 解决图片上传问题
+      //response代表服务器响应的图片路径
+      let avatar = response;
+      this.oldAvatar = require("../../assets/img"+avatar);
+      this.isShow = false;//上传图片后不显示
+    },
     goBack() {
       history.back();//返回上一页面
     },
+    handleRemove(file, fileList) {
+      this.isShow = true;//删除后设为显示
+      console.log(file, fileList);
+      //发出删除图片的请求
+      let url = 'http://localhost:8888/remove?url=' + file.response;
+      this.axios.get(url).then((response) => {
+        this.$message.success("删除服务器图片完成!")
+      })
+    },
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
+    }
   },
   mounted() {
     this.loadLocalRuleForm();

@@ -1,6 +1,6 @@
 <style>
 body {
-  background-image: url("../../assets/loginImg.png");
+  background-image: url("../../../public/loginImg.png");
   background-size: cover; /*设置封面*/
 }
 
@@ -180,6 +180,7 @@ export default {
         let responseBody = response.data;
         if (responseBody.state == 20000){
           this.user = responseBody.data;
+          this.user.avatar = require("../../assets/img"+this.user.avatar);// 将修改图片的原图设置为获取并处理后的路径
         }else {
           this.$message.error(responseBody.message);
         }
