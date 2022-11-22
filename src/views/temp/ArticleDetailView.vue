@@ -114,7 +114,7 @@ a:active {
                 {{ item.name }}
               </el-tag>
               <p style="font-size: 25px;color: #13cd7c;font-weight: bold">图片:</p>
-                <img style="width: 200px;height: 200px" :src="article.url" alt="">
+                <img style="width: 120px;height: 120px" :src="article.url" alt="">
               <p style="font-size: 25px;color: #0e6bf5;font-weight: bold">评论:</p>
               <el-input style="margin: 10px;width: 300px"
                         type="text"
@@ -237,7 +237,6 @@ export default {
         let responseBody = response.data;
         if (responseBody.state == 20000){
           this.article = responseBody.data;
-          this.article.url = require("../../assets/img"+this.article.url);// 将修改图片的原图设置为获取并处理后的路径
         }else {
           this.$message.error(responseBody.message);
         }

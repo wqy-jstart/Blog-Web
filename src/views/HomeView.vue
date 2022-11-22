@@ -169,7 +169,7 @@ export default {
         let responseBody = response.data;
         if (responseBody.state == 20000){
           this.user = responseBody.data;
-          this.user.avatar = require("../assets/img"+this.user.avatar);// 将修改图片的原图设置为获取并处理后的路径
+          this.user.avatar = require('../../../public'+this.user.avatar);// 将修改图片的原图设置为获取并处理后的路径
         }else {
           this.$message.error(responseBody.message);
         }

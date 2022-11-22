@@ -97,7 +97,8 @@ a {
                     list-type="picture-card"
                     :on-success="handleSuccess"
                     :on-preview="handlePictureCardPreview"
-                    :on-remove="handleRemove">
+                    :on-remove="handleRemove"
+                    :before-upload="handleBeforeUpload">
                   <i class="el-icon-plus"></i>
                 </el-upload>
                 <el-dialog :visible.sync="dialogVisible">
@@ -122,7 +123,7 @@ a {
           <el-input v-model="ruleForm.username" autocomplete="off"/>
         </el-form-item>
         <el-form-item label="原密码:" prop="OldPassword" :label-width="formLabelWidth">
-          <el-input type="password" v-model="OldPassword" placeholder="请输入原密码" autocomplete="off"/>
+          <el-input @blur="matches()" type="password" v-model="old.oldPassword" placeholder="请输入原密码" autocomplete="off"/>{{info}}
         </el-form-item>
         <el-form-item label="修改后的密码:" prop="password" :label-width="formLabelWidth">
           <el-input type="password" v-model="ruleForm.password" placeholder="请输入修改后的密码" autocomplete="off"/>
@@ -151,7 +152,6 @@ export default {
       user: {
         id: '',
         username: '',
-        password: '',
         nickname: '',
         gender: '',
         age: '',
@@ -164,7 +164,9 @@ export default {
         avatar: ''
       },
       oldAvatar:'',
-      OldPassword: '',
+      old:{
+        oldPassword: '',
+      },
       ruleForm: {
         username: '',
         password: ''
@@ -199,7 +201,8 @@ export default {
           {required: true, message: '修改后的密码不能为空!', trigger: 'blur'},
           {min: 4, max: 15, message: '长度在 4 到 15 个字符', trigger: 'blur'}
         ],
-      }
+      },
+      info:'',
     };
   },
   methods: {
@@ -216,14 +219,30 @@ export default {
     handleEdit() {
       this.dialogFormVisible = true;
     },
+    matches(){
+      let url = 'http://localhost:8888/users/'+this.user.id+'/matches';
+      let formData = this.qs.stringify(this.old)
+      this.axios
+          .create({
+            'headers': {
+              'Authorization': localStorage.getItem('jwt')
+            }
+          }).post(url,formData).then((response)=>{
+        let responseBody = response.data;
+        if (responseBody.state==20000){
+          this.info = "密码匹配";
+        }else {
+          this.info = responseBody.message;
+        }
+      })
+    },
     // 处理修改密码后的信息
     submitTrue() {
-      if (this.OldPassword == this.user.password) {
+      if (this.info=='密码匹配'){
         let url = 'http://localhost:8888/users/' + this.user.id + '/updateToPassword';
         console.log('url:' + url);
         let formData = this.qs.stringify(this.ruleForm);// 将修改的数据转换为formData格式
         console.log('formData=' + formData);
-
         this.axios
             .create({
               'headers': {
@@ -236,14 +255,16 @@ export default {
               confirmButtonText: '确定',
             });
             this.dialogFormVisible = false;
+            this.old.oldPassword = '';
+            this.ruleForm.password = '';
             // 返回详情列表
             this.loadUserDetail();
           } else {
             this.$message.error(responseBody.message);
           }
         })
-      } else {
-        this.$message.error("原密码不一致,请重试!")
+      }else {
+        this.$message.error("修改失败,原密码不匹配!")
       }
     },
     // 处理提交修改
@@ -287,19 +308,18 @@ export default {
         let responseBody = response.data;
         if (responseBody.state == 20000) {
           this.user = responseBody.data;
-           // 获取user中的头像路径,放到require中
-          this.user.avatar = require("../../assets/img"+this.user.avatar);// 将修改图片的原图设置为获取并处理后的路径
           this.oldAvatar = this.user.avatar
         } else {
           this.$message.error(responseBody.message);
         }
       })
     },
+    handleBeforeUpload(file){// 上传图片前删除原来的图片
+      this.handleRemove(file);
+    },
     handleSuccess(response, file, fileList) {//图片上传成功后接收图片的url
-      // TODO 解决图片上传问题
       //response代表服务器响应的图片路径
-      let avatar = response;
-      this.oldAvatar = require("../../assets/img"+avatar);
+      this.user.avatar = response;
       this.isShow = false;//上传图片后不显示
     },
     goBack() {
@@ -309,14 +329,14 @@ export default {
       this.isShow = true;//删除后设为显示
       console.log(file, fileList);
       //发出删除图片的请求
-      let url = 'http://localhost:8888/remove?url=' + file.response;
+      let url = 'http://localhost:8888/remove?url=' + this.oldAvatar;
       this.axios
           .create({
             'headers': {
               'Authorization': localStorage.getItem('jwt')
             }
           }).get(url).then((response) => {
-        this.$message.success("删除服务器图片完成!")
+        this.$message.success("删除原头像成功!")
       })
     },
     handlePictureCardPreview(file) {
