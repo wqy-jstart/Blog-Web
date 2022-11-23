@@ -84,7 +84,7 @@ a:active {
       <el-container>
         <el-aside class="layout-side">
           <div class="block" style="float: right;margin-top: 60px">
-            <el-avatar :size="100"
+            <el-avatar :size="120"
                        :src="ruleForm.avatar"/>
             <p style="color: white;text-align: center">昵称:{{ruleForm.nickname}}</p>
             <p style="color: white;text-align: center">评论量:{{ruleForm.articleCount}}</p>

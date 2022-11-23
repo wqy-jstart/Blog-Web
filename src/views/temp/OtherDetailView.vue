@@ -39,7 +39,7 @@ body {
 }
 
 .layout-side{
-  width: 730px !important;
+  width: 1020px !important;
   height: 1000px;
 }
 
@@ -56,28 +56,19 @@ a {
 <template>
   <div>
     <el-page-header style="background: rgba(255, 255, 255, 0.5); color: white;
-    line-height: 60px; font-weight: bold" @back="goBack" content="我的主页">
+    line-height: 60px; font-weight: bold" @back="goBack" content="返回主页">
     </el-page-header>
-    <div style="float: right;position: absolute; right: 10px;top: 12px">
-      <a href="/createArticle">创作</a>
-      <a href="javascript:void(0)" @click="openLogOff()">注销</a>
-    </div>
     <el-container>
       <el-container>
         <el-aside class="layout-side">
-          <div class="block" style="float: right;margin-top: 60px">
+          <div class="block" style="float:left;margin-top: 60px;margin-left: 380px">
             <el-avatar :size="120"
                        :src="user.avatar"></el-avatar>
             <p style="color: white;text-align: center">昵称:{{user.nickname}}</p>
             <p style="color: white;text-align: center">评论量:{{user.articleCount}}</p>
-            <el-button style="margin-right:20px;margin-top:10px;float: right" type="success" size="mini" @click="selectArticle()">我的文章</el-button>
           </div>
-        </el-aside>
-        <el-main class="layout-main">
+          <div style="float: right;margin-right: 20px">
           <el-descriptions class="margin-top" title="用户详情:" :column="1" :size="size" border>
-            <template slot="extra">
-              <el-button type="primary" size="mini" @click="update()">修改</el-button>
-            </template>
             <el-descriptions-item>
               <template slot="label">
                 <i class="el-icon-user"></i>
@@ -142,6 +133,18 @@ a {
               {{user.sign}}
             </el-descriptions-item>
           </el-descriptions>
+          </div>
+        </el-aside>
+        <el-main class="layout-main">
+          <p class="title">文章列表</p>
+          <el-card shadow="hover" class="box-card" v-for="item in articleList">
+            <div slot="header" class="clearfix">
+              <span style="font-size: 22px">{{item.title}}</span> &nbsp<span>{{item.gmtCreate}}</span>
+            </div>
+            <div class="text item">
+              {{user.nickname}}:&nbsp{{item.description}}
+            </div>
+          </el-card>
         </el-main>
       </el-container>
     </el-container>
@@ -155,15 +158,17 @@ export default {
       user:{
         id:'',
       },
-      ruleForm:{
-        username:''
-      }
+      articleList:[],
     };
   },
   methods: {
-    // 注销时删除用户的功能
-    handleLogOff(){
-      let url = 'http://localhost:8888/users/'+this.user.id+'/logOff';
+    // 根据id加载对应用户详情信息
+    loadUserDetail(){
+      //location.search: ?userId=2&articleId=5
+      let sp = location.search.split("&")
+      let id = sp[0].split("=")
+      let uid = id[1]
+      let url = 'http://localhost:8888/users/'+uid+'/selectById';
       this.axios
           .create({
             'headers': {
@@ -172,71 +177,39 @@ export default {
           }).get(url).then((response)=>{
         let responseBody = response.data;
         if (responseBody.state == 20000){
-          this.$message.success("注销成功!")
-          this.$router.push("/login")
-        }else {
-          this.$message.error(responseBody.message);
-        }
-      })
-    },
-    // 处理点击注销的功能
-    openLogOff(){
-      let message = '此操作将永久注销[' + this.user.username + ']用户, 是否继续?'
-      this.$confirm(message, '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.handleLogOff();
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消注销'
-        });
-      });
-    },
-    // 查询个人文章
-    selectArticle(){
-      this.$router.push('/personalArticle'+location.search);
-    },
-    // 加载本地的表单中的数据,存放到roleForm中去
-    loadLocalRuleForm(){
-      let localRuleFormString = localStorage.getItem('ruleForm');
-      if (localRuleFormString) {
-        let localRuleForm = JSON.parse(localRuleFormString);
-        this.ruleForm.username = localRuleForm;
-        console.log(this.ruleForm.username)
-      }
-    },
-    // 加载用户详情信息
-    loadUserDetail(){
-      let url = 'http://localhost:8888/users/';
-      let formData = this.qs.stringify(this.ruleForm);
-      console.log(formData);
-      this.axios
-          .create({
-            'headers': {
-              'Authorization': localStorage.getItem('jwt')
-            }
-          }).post(url,formData).then((response)=>{
-        let responseBody = response.data;
-        if (responseBody.state == 20000){
           this.user = responseBody.data;
         }else {
           this.$message.error(responseBody.message);
         }
       })
     },
-    update() {
-      location.href="/userUpdate"
+    loadArticleList(){
+      //location.search: ?userId=2&articleId=5
+      let sp = location.search.split("&")
+      let id = sp[0].split("=")
+      let uid = id[1]
+      let url = 'http://localhost:8888/articles/selectById?id='+uid;
+      this.axios
+          .create({
+            'headers': {
+              'Authorization': localStorage.getItem('jwt')
+            }
+          }).get(url).then((response)=>{
+        let responseBody = response.data;
+        if (responseBody.state == 20000){
+          this.articleList = responseBody.data;
+        }else {
+          this.$message.error(responseBody.message);
+        }
+      })
     },
     goBack() {
       location.href="/";//主页
     },
   },
   mounted() {
-    this.loadLocalRuleForm();
     this.loadUserDetail();
+    this.loadArticleList();
   }
 }
 </script>

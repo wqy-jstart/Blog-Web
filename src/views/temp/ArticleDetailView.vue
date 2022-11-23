@@ -84,8 +84,10 @@ a:active {
       <el-container>
         <el-aside class="layout-side">
           <div class="block" style="float: right;margin-top: 60px">
-            <el-avatar :size="100"
-                       :src="user.avatar"/>
+            <a style="margin-right: 15px" href="javascript:void(0)" @click="nowDetail(user.id,article.id)">
+              <el-avatar :size="120"
+                         :src="user.avatar"/>
+            </a>
             <p style="color: white;text-align: center;font-size: 15px">昵称:{{user.nickname}}</p>
             <p style="color: white;text-align: center;font-size: 15px">评论量:{{user.articleCount}}</p>
           </div>
@@ -145,6 +147,7 @@ export default {
     return {
       articleCategoryListOptions:[],
       article: { // 文章信息
+        id:'',
         url:'',
         title:'',
         description:'',
@@ -198,6 +201,9 @@ export default {
           this.$message.error(responseBody.message);
         }
       })
+    },
+    nowDetail(userId,articleId){
+      location.href = '/otherDetail?id='+userId+'&articleId='+articleId+'';
     },
     // 加载用户详情信息
     loadUserDetail(){
