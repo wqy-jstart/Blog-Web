@@ -60,7 +60,7 @@ a {
     </el-page-header>
     <div style="float: right;position: absolute; right: 10px;top: 12px">
       <a href="/createArticle">创作</a>
-      <a href="/login">注销</a>
+      <a href="javascript:void(0)" @click="openLogOff()">注销</a>
     </div>
     <el-container>
       <el-container>
@@ -152,13 +152,50 @@ export default {
   data() {
     return {
       size: 'medium',
-      user:{},
+      user:{
+        id:'',
+      },
       ruleForm:{
         username:''
       }
     };
   },
   methods: {
+    // 注销时删除用户的功能
+    handleLogOff(){
+      let url = 'http://localhost:8888/users/'+this.user.id+'/logOff';
+      this.axios
+          .create({
+            'headers': {
+              'Authorization': localStorage.getItem('jwt')
+            }
+          }).get(url).then((response)=>{
+        let responseBody = response.data;
+        if (responseBody.state == 20000){
+          this.$message.success("注销成功!")
+          this.$router.push("/login")
+        }else {
+          this.$message.error(responseBody.message);
+        }
+      })
+    },
+    // 处理点击注销的功能
+    openLogOff(){
+      let message = '此操作将永久注销[' + this.user.username + ']用户, 是否继续?'
+      this.$confirm(message, '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.handleLogOff();
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消注销'
+        });
+      });
+    },
+    // 查询个人文章
     selectArticle(){
       this.$router.push('/personalArticle'+location.search);
     },

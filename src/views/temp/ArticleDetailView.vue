@@ -191,6 +191,7 @@ export default {
         let responseBody = response.data;
         if (responseBody.state == 20000){
           this.$message.success("评论成功!")
+          this.comment.content='';// 清空评论区
           this.loadCommentList();
           this.loadUserDetail();
         }else {

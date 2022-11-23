@@ -91,7 +91,7 @@ export default {
           let formData = this.qs.stringify(this.ruleForm)
           this.axios.post(url, formData).then((response) => {
             let responseBody = response.data;
-            if (responseBody.state == 20000) {
+            if (responseBody.state == 20000){
               let ruleFormString = JSON.stringify(this.ruleForm.username);
               localStorage.setItem('ruleForm', ruleFormString);
               location.href = "/";
@@ -104,7 +104,7 @@ export default {
                 type: 'success'
               });
             } else {
-              this.$message.error(responseBody.message);
+              this.$message.error("登录失败,用户名或密码有误!");
             }
           })
         } else {
