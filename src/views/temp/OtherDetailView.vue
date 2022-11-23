@@ -188,7 +188,7 @@ export default {
       let sp = location.search.split("&")
       let id = sp[0].split("=")
       let uid = id[1]
-      let url = 'http://localhost:8888/articles/selectById?id='+uid;
+      let url = 'http://localhost:8888/articles/selectById?userId='+uid;
       this.axios
           .create({
             'headers': {

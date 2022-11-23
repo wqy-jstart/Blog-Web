@@ -203,7 +203,7 @@ export default {
       })
     },
     nowDetail(userId,articleId){
-      location.href = '/otherDetail?id='+userId+'&articleId='+articleId+'';
+      location.href = '/otherDetail?userId='+userId+'&articleId='+articleId+'';
     },
     // 加载用户详情信息
     loadUserDetail(){
