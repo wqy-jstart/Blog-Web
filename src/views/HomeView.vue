@@ -145,12 +145,7 @@ export default {
     logout(){
       localStorage.removeItem('ruleForm');
       let url = 'http://localhost:8888/users/logout'
-      this.axios
-          .create({
-            'headers': {
-              'Authorization': localStorage.getItem('jwt')
-            }
-          }).get(url).then(()=>{
+      this.axios.get(url).then(()=>{
         this.$router.push('/login');
       })
     },
