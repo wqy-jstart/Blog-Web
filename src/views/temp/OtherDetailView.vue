@@ -49,6 +49,14 @@ a {
   font-size: 25px;
 }
 
+.title{
+  color: white;
+  margin-left: 240px;
+  margin-bottom: 20px;
+  font-size: 35px;
+  font-family: 方正姚体
+}
+
 /*-----------------------------------------------*/
 
 /*--------------------------------------------------*/
@@ -64,8 +72,8 @@ a {
           <div class="block" style="float:left;margin-top: 60px;margin-left: 380px">
             <el-avatar :size="120"
                        :src="user.avatar"></el-avatar>
-            <p style="color: white;text-align: center">昵称:{{user.nickname}}</p>
-            <p style="color: white;text-align: center">评论量:{{user.articleCount}}</p>
+            <p style="color: white;font-family: 幼圆;text-align: center">昵称:{{user.nickname}}</p>
+            <p style="color: white;font-family: 幼圆;text-align: center">评论量:{{user.articleCount}}</p>
           </div>
           <div style="float: right;margin-right: 20px">
           <el-descriptions class="margin-top" title="用户详情:" :column="1" :size="size" border>

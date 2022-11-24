@@ -18,7 +18,7 @@ body {
         <el-card style="width: 500px;height: 360px;margin: 300px auto;
                 background-color: rgba(255,255,255,0.3)">
           <!--label-width设置用户名这一列所占的宽度,如果不设置会显示在上面-->
-          <h1>用户注册</h1>
+          <h1>Sign Up</h1>
           <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="80px"
                    style="width: 400px;margin: 40px auto">
             <el-form-item label="昵称" prop="nickname">

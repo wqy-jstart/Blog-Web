@@ -58,8 +58,8 @@ a {
   color: whitesmoke;
   margin-left: 260px;
   margin-bottom: 20px;
-  font-size: 30px;
-  font-family: 黑体
+  font-size: 35px;
+  font-family: 方正姚体
 }
 
 /*--------------------------------------------------*/
@@ -88,26 +88,26 @@ a:active {
               <el-avatar :size="120"
                          :src="user.avatar"/>
             </a>
-            <p style="color: white;text-align: center;font-size: 15px">昵称:{{user.nickname}}</p>
-            <p style="color: white;text-align: center;font-size: 15px">评论量:{{user.articleCount}}</p>
+            <p style="color: white;font-family: 幼圆;text-align: center;font-size: 15px">昵称:{{user.nickname}}</p>
+            <p style="color: white;font-family: 幼圆;text-align: center;font-size: 15px">评论量:{{user.articleCount}}</p>
           </div>
         </el-aside>
         <el-main class="layout-main">
           <p class="title">文章详情</p>
           <div style="width:600px ; height: 800px ;padding: 40px; border: 2px solid black ; border-radius: 15px">
             <el-form v-model="article" ref="article" class="demo-ruleForm">
-              <p style="font-size: 50px;color: #0e6bf5;font-weight: bold">{{user.nickname}}</p>
-              <div style="height: 15px"></div>
+              <p style="font-size: 50px;font-family: 幼圆;color: #c63445;font-weight: bold">Author:{{user.nickname}}</p>
+              <div style="height: 18px"></div>
 
-              <p style="font-size: 35px;color: #0e6bf5;font-weight: bold">标题:      {{article.title}}</p>
-              <div style="height: 15px"></div>
+              <p style="font-size: 35px;font-family: 幼圆;color: #0e6bf5;font-weight: bold">标题:      {{article.title}}</p>
+              <div style="height: 18px"></div>
 
-              <p style="font-size: 30px;color: #13cd7c;font-weight: bold">描述:     {{article.description}}</p>
-              <div style="height: 15px"></div>
+              <p style="font-size: 30px;font-family: 幼圆;color: #0e6bf5;font-weight: bold">描述:     {{article.description}}</p>
+              <div style="height: 18px"></div>
 
-              <p style="font-size: 25px;color: #13cd7c;font-weight: bold">博客内容: {{article.text}}</p>
-              <div style="height: 10px"></div>
-              <p style="font-size: 25px;color: #0e6bf5;font-weight: bold">类别:</p>
+              <p style="font-size: 25px;font-family: 幼圆;color: #0e6bf5;font-weight: bold">博客内容: {{article.text}}</p>
+              <div style="height: 15px"></div>
+              <p style="font-size: 25px;font-family: 幼圆;color: #0e6bf5;font-weight: bold">类别:</p>
               <el-tag style="margin: 15px 10px 15px "
                   v-for="item in category"
                   :key="item.name"
@@ -115,9 +115,10 @@ a:active {
                   effect="plain">
                 {{ item.name }}
               </el-tag>
-              <p style="font-size: 25px;color: #13cd7c;font-weight: bold">图片:</p>
+              <p style="font-size: 25px;font-family: 幼圆;color: #0e6bf5;font-weight: bold">图片:</p>
                 <img style="width: 120px;height: 120px" :src="article.url" alt="">
-              <p style="font-size: 25px;color: #0e6bf5;font-weight: bold">评论:</p>
+              <div style="height: 18px"></div>
+              <p style="font-size: 25px;font-family: 幼圆;color: #0e6bf5;font-weight: bold">评论:</p>
               <el-input style="margin: 10px;width: 300px"
                         type="text"
                         placeholder="请输入评论"
@@ -129,7 +130,7 @@ a:active {
               </el-input>
               <el-button type="success" plain size="mini" @click="send()">发送</el-button>
               <div v-for="item in commentList">
-                <p style="font-size: 25px;color: #c10f41;font-weight: bold">
+                <p style="font-size: 25px;font-family: 幼圆;color: #c10f41;font-weight: bold">
                   {{item.nickname}}:{{item.content}}
                   <span style="float: right;font-size: 18px">{{item.gmtCreate}}</span>
                 </p>

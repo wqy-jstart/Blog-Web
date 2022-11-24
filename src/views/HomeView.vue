@@ -53,10 +53,10 @@ a {
 }
 .title{
   color: white;
-  margin-left: 260px;
+  margin-left: 240px;
   margin-bottom: 20px;
-  font-size: 30px;
-  font-family: 黑体
+  font-size: 35px;
+  font-family: 方正姚体
 }
 /*--------------------------------------------------*/
 /*悬停*/
@@ -91,8 +91,8 @@ a:active {
           <div class="block" style="float: right;margin-top: 60px">
             <el-avatar :size="120"
                        :src="user.avatar"/>
-            <p style="color: white;text-align: center">昵称:{{user.nickname}}</p>
-            <p style="color: white;text-align: center">评论量:{{user.articleCount}}</p>
+            <p style="color: white;font-family: 幼圆;text-align: center">昵称:{{user.nickname}}</p>
+            <p style="color: white;font-family: 幼圆;text-align: center">评论量:{{user.articleCount}}</p>
           </div>
         </el-aside>
         <el-main class="layout-main">

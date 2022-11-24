@@ -25,9 +25,9 @@ a {
     <el-container>
       <el-header class="layout-header">
         <div class="block">
-          <h1 style="color: black">Welcome to my blog
+          <h1 style="color: black;font-size: 35px">Welcome to my blog
             <span style="float: right">
-            <a href="/register">注册</a>
+            <a href="/register">Sign Up</a>
           </span>
           </h1>
         </div>
@@ -36,7 +36,7 @@ a {
         <el-card style="width: 500px;height: 360px;margin: 300px auto;
                 background-color: rgba(255,255,255,0.3)">
           <!--label-width设置用户名这一列所占的宽度,如果不设置会显示在上面-->
-          <h1>用户登录</h1>
+          <h1>User Login</h1>
           <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="80px"
                    style="width: 400px;margin: 40px auto">
             <el-form-item label="用户名" prop="username">

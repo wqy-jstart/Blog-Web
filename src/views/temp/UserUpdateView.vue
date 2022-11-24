@@ -41,15 +41,15 @@ a {
           <div class="block" style="float: right;margin-top: 60px">
             <el-avatar :size="100"
                        :src="user.avatar"/>
-            <p style="color: white;text-align: center">昵称:{{ user.nickname }}</p>
-            <p style="color: white;text-align: center">浏览量:{{ user.articleCount }}</p>
+            <p style="color: white;font-family: 幼圆;text-align: center">昵称:{{ user.nickname }}</p>
+            <p style="color: white;font-family: 幼圆;text-align: center">浏览量:{{ user.articleCount }}</p>
             <el-button style="margin-right:12px;margin-top:10px;float: right" type="primary" size="mini"
                        @click="handleEdit()">修改密码
             </el-button>
           </div>
         </el-aside>
         <el-main class="layout-main">
-          <p style="color: white;margin-left: 260px;margin-bottom: 20px;font-size: 30px;font-family: 黑体">修改信息</p>
+          <p style="color: white;font-family: 方正姚体;margin-left: 250px;margin-bottom: 20px;font-size: 35px">修改信息</p>
           <el-card class="box-card" style="width: 600px;height: 1000px;margin: 0;border: 1px solid black"><!--卡片-->
             <el-form label-width="80px"> <!--Element组件中的表单-->
               <el-form-item label="用户名:">

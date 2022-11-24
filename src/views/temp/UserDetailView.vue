@@ -68,8 +68,8 @@ a {
           <div class="block" style="float: right;margin-top: 60px">
             <el-avatar :size="120"
                        :src="user.avatar"></el-avatar>
-            <p style="color: white;text-align: center">昵称:{{user.nickname}}</p>
-            <p style="color: white;text-align: center">评论量:{{user.articleCount}}</p>
+            <p style="color: white;font-family: 幼圆;text-align: center">昵称:{{user.nickname}}</p>
+            <p style="color: white;font-family: 幼圆;text-align: center">评论量:{{user.articleCount}}</p>
             <el-button style="margin-right:20px;margin-top:10px;float: right" type="success" size="mini" @click="selectArticle()">我的文章</el-button>
           </div>
         </el-aside>
