@@ -139,7 +139,6 @@ export default {
       if (localRuleFormString) {
         let localRuleForm = JSON.parse(localRuleFormString);
         this.ruleForm.username = localRuleForm;
-        console.log(this.ruleForm.username)
       }
     },
     // 退出登录
@@ -159,7 +158,6 @@ export default {
     loadUserDetail(){
       let url = 'http://localhost:8888/users/';
       let formData = this.qs.stringify(this.ruleForm);
-      console.log('formData='+formData);
       this.axios
           .create({
             'headers': {

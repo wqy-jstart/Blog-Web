@@ -205,14 +205,12 @@ export default {
       if (localRuleFormString) {
         let localRuleForm = JSON.parse(localRuleFormString);
         this.ruleForm.username = localRuleForm;
-        console.log(this.ruleForm.username)
       }
     },
     // 加载用户详情信息
     loadUserDetail(){
       let url = 'http://localhost:8888/users/';
       let formData = this.qs.stringify(this.ruleForm);
-      console.log(formData);
       this.axios
           .create({
             'headers': {

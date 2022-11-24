@@ -179,7 +179,6 @@ export default {
       if (localRuleFormString) {
         let localRuleForm = JSON.parse(localRuleFormString);
         this.comment.username = localRuleForm;
-        console.log(this.comment.username)
       }
     },
     // 点击发送评论事件
@@ -286,7 +285,6 @@ export default {
         let responseBody = response.data;
         if (responseBody.state == 20000){
           this.commentList = responseBody.data;
-          console.log(this.commentList)
         }else {
           this.$message.error(responseBody.message);
         }
