@@ -146,7 +146,7 @@ export default {
       localStorage.removeItem('ruleForm');
       let url = 'http://localhost:8888/users/logout'
       this.axios.get(url).then(()=>{
-        this.$router.push('/login');
+        location.href = "/login"
       })
     },
     // 加载用户详情信息
