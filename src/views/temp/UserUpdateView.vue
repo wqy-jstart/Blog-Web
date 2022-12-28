@@ -219,7 +219,7 @@ export default {
       this.dialogFormVisible = true;
     },
     matches(){
-      let url = 'http://localhost:8888/users/'+this.user.id+'/matches';
+      let url = this.GLOBAL.blog+'users/'+this.user.id+'/matches';
       let formData = this.qs.stringify(this.old)
       this.axios
           .create({
@@ -237,8 +237,8 @@ export default {
     },
     // 处理修改密码后的信息
     submitTrue() {
-      if (this.info=='密码匹配'){
-        let url = 'http://localhost:8888/users/' + this.user.id + '/updateToPassword';
+      if (this.info=='密码匹配!'){
+        let url = this.GLOBAL.blog+'users/' + this.user.id + '/updateToPassword';
         console.log('url:' + url);
         let formData = this.qs.stringify(this.ruleForm);// 将修改的数据转换为formData格式
         console.log('formData=' + formData);
@@ -268,7 +268,7 @@ export default {
     },
     // 处理提交修改
     submitEdit() {
-      let url = 'http://localhost:8888/users/' + this.user.id + '/update';
+      let url = this.GLOBAL.blog+'users/' + this.user.id + '/update';
       console.log('url:' + url);
       // let formData = this.qs.stringify(this.user);// 将修改的数据转换为formData格式
       // console.log('formData=' + formData);
@@ -295,7 +295,7 @@ export default {
     },
     // 加载修改前用户详情信息
     loadUserDetail() {
-      let url = 'http://localhost:8888/users/';
+      let url = this.GLOBAL.blog+'users/';
       let formData = this.qs.stringify(this.ruleForm);
       this.axios
           .create({
@@ -327,7 +327,7 @@ export default {
       this.isShow = true;//删除后设为显示
       console.log(file, fileList);
       //发出删除图片的请求
-      let url = 'http://localhost:8888/remove?url=' + this.oldAvatar;
+      let url = this.GLOBAL.blog+'remove?url=' + this.oldAvatar;
       this.axios
           .create({
             'headers': {

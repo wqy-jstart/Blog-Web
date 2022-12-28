@@ -144,14 +144,14 @@ export default {
     // 退出登录
     logout(){
       localStorage.removeItem('ruleForm');
-      let url = 'http://localhost:8888/users/logout'
+      let url = this.GLOBAL.blog+'users/logout'
       this.axios.get(url).then(()=>{
         location.href = "/login"
       })
     },
     // 加载用户详情信息
     loadUserDetail(){
-      let url = 'http://localhost:8888/users/';
+      let url = this.GLOBAL.blog+'users/';
       let formData = this.qs.stringify(this.ruleForm);
       this.axios
           .create({
@@ -176,7 +176,7 @@ export default {
     },
     // 加载主页列表信息
     loadHomeList(){
-      let url = 'http://localhost:8888/articles/';
+      let url = this.GLOBAL.blog+'articles/';
       this.axios
           .create({
             'headers': {

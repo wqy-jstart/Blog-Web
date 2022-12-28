@@ -176,7 +176,7 @@ export default {
       let sp = location.search.split("&")
       let id = sp[0].split("=")
       let uid = id[1]
-      let url = 'http://localhost:8888/users/'+uid+'/selectById';
+      let url = this.GLOBAL.blog+'users/'+uid+'/selectById';
       this.axios
           .create({
             'headers': {
@@ -196,7 +196,7 @@ export default {
       let sp = location.search.split("&")
       let id = sp[0].split("=")
       let uid = id[1]
-      let url = 'http://localhost:8888/articles/selectById?userId='+uid;
+      let url = this.GLOBAL.blog+'articles/selectById?userId='+uid;
       this.axios
           .create({
             'headers': {

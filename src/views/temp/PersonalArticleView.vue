@@ -116,7 +116,7 @@ export default {
     },
     // 加载用户详情信息
     loadUserDetail(){
-      let url = 'http://localhost:8888/users/';
+      let url = this.GLOBAL.blog+'users/';
       let formData = this.qs.stringify(this.ruleForm);
       console.log(formData);
       this.axios
@@ -135,7 +135,7 @@ export default {
     },
     // 加载文章列表
     loadHomeList(){
-      let url = 'http://localhost:8888/articles/selectById'+location.search;
+      let url = this.GLOBAL.blog+'articles/selectById'+location.search;
       this.axios
           .create({
             'headers': {

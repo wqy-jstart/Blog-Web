@@ -6,7 +6,9 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import axios from 'axios';
 import qs from 'qs';
+import global from '../src/components/Global'; // 导入后端博客的请求地址
 
+Vue.prototype.GLOBAL = global; // 将导入的变量赋值给Vue
 Vue.use(ElementUI);
 Vue.config.productionTip = false
 Vue.prototype.qs = qs;

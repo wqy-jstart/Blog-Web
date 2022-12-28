@@ -184,7 +184,7 @@ export default {
     // 点击发送评论事件
     send(){
       let formData = this.qs.stringify(this.comment);
-      let url = 'http://localhost:8888/comments/insert';
+      let url = this.GLOBAL.blog+'comments/insert';
       this.axios
           .create({
             'headers': {
@@ -212,7 +212,7 @@ export default {
       let id = sp[0].split("=")
       let uid = id[1]
       this.comment.userId = uid;
-      let url = 'http://localhost:8888/users/'+uid+'/selectById';
+      let url = this.GLOBAL.blog+'users/'+uid+'/selectById';
       this.axios
           .create({
             'headers': {
@@ -234,7 +234,7 @@ export default {
       let id = sp[1].split("=")
       let aid = id[1]
       this.comment.articleId = aid;
-      let url = 'http://localhost:8888/articles/'+aid+'/selectById';
+      let url = this.GLOBAL.blog+'articles/'+aid+'/selectById';
       this.axios
           .create({
             'headers': {
@@ -254,7 +254,7 @@ export default {
       let sp = location.search.split("&")
       let id = sp[1].split("=")
       let aid = id[1]
-      let url = 'http://localhost:8888/categories/'+aid+'/listByArticleId';
+      let url = this.GLOBAL.blog+'categories/'+aid+'/listByArticleId';
       this.axios
           .create({
             'headers': {
@@ -275,7 +275,7 @@ export default {
       let sp = location.search.split("&")
       let id = sp[1].split("=")
       let aid = id[1]
-      let url = 'http://localhost:8888/comments/'+aid+'/listByArticleId';
+      let url = this.GLOBAL.blog+'comments/'+aid+'/listByArticleId';
       this.axios
           .create({
             'headers': {

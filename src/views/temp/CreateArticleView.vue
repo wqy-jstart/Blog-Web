@@ -216,7 +216,7 @@ export default {
     send(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          let url = 'http://localhost:8888/articles/'+this.ruleForm.id+'/insert'
+          let url = this.GLOBAL.blog+'articles/'+this.ruleForm.id+'/insert'
           console.log('url = ' + url);
           //将formData对象转换成FormData格式-------------------------------------数组格式
           let formData = this.qs.stringify(this.article, {arrayFormat: 'repeat'});
@@ -251,7 +251,7 @@ export default {
     },
     // 加载类别下拉框列表
     loadCategoryList() {
-      let url = 'http://localhost:8888/categories';
+      let url = this.GLOBAL.blog+'categories';
       console.log('url='+url);
       this.axios
           .create({
@@ -265,7 +265,7 @@ export default {
     },
     // 加载用户详情信息
     loadUserDetail(){
-      let url = 'http://localhost:8888/users/';
+      let url = this.GLOBAL.blog+'users/';
       let formData = this.qs.stringify(this.ruleForm);
       console.log(formData);
       this.axios
@@ -285,7 +285,7 @@ export default {
     },
     handleRemove(file, fileList) {
       console.log(file, fileList);
-      let url = 'http://localhost:8888/remove?url=' + file.response;
+      let url = this.GLOBAL.blog+'remove?url=' + file.response;
       this.axios
           .create({
             'headers': {

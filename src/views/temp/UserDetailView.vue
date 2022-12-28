@@ -163,7 +163,7 @@ export default {
   methods: {
     // 注销时删除用户的功能
     handleLogOff(){
-      let url = 'http://localhost:8888/users/'+this.user.id+'/logOff';
+      let url = this.GLOBAL.blog+'users/'+this.user.id+'/logOff';
       this.axios
           .create({
             'headers': {
@@ -209,7 +209,7 @@ export default {
     },
     // 加载用户详情信息
     loadUserDetail(){
-      let url = 'http://localhost:8888/users/';
+      let url = this.GLOBAL.blog+'users/';
       let formData = this.qs.stringify(this.ruleForm);
       this.axios
           .create({
