@@ -4,7 +4,7 @@
 
 <script>
 
-const blog = 'http://125.74.199.190:8888/';
+const blog = "http://localhost:8888/";
 
 export default {
   name: "Global",
