@@ -237,7 +237,7 @@ export default {
     },
     // 处理修改密码后的信息
     submitTrue() {
-      if (this.info=='密码匹配!'){
+      if (this.info=='密码匹配'){
         let url = this.GLOBAL.blog+'users/' + this.user.id + '/updateToPassword';
         console.log('url:' + url);
         let formData = this.qs.stringify(this.ruleForm);// 将修改的数据转换为formData格式
