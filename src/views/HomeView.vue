@@ -58,7 +58,6 @@ a {
   font-size: 35px;
   font-family: 方正姚体
 }
-<!--解决因该卡片样式，造成在Nginx服务器不能正常显示的问题！-->
 .box-card{
   color: #303133;
 }

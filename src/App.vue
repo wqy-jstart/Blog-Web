@@ -5,7 +5,7 @@
 </template>
 
 <style>
-*{ /* 所有的外边距都为0 */
+*{
   margin: 0;
 }
 #app {
